@@ -21,14 +21,14 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mauro.helpdesk.domain.Tecnico;
 import com.mauro.helpdesk.domain.dtos.TecnicoDTO;
-import com.mauro.helpdesk.services.TecnicoService;
+import com.mauro.helpdesk.services.tecnicoService;
 
 @RestController
 @RequestMapping(value ="/tecnicos")
 public class TecnicoResource {
 	
 	@Autowired 
-	private TecnicoService service;
+	private tecnicoService service;
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id){

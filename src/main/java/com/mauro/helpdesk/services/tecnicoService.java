@@ -18,7 +18,7 @@ import com.mauro.helpdesk.services.exeptions.DataIntegrityViolationException;
 import com.mauro.helpdesk.services.exeptions.ObjectNotFoundExcepetion;
 
 @Service
-public class  TecnicoService {
+public class  tecnicoService {
 
 	@Autowired
 	private TecnicoRepository repository;
