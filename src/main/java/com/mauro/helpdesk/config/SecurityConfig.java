@@ -21,19 +21,16 @@ import com.mauro.helpdesk.security.JWTAuthenticationFilter;
 import com.mauro.helpdesk.security.JWTAuthorizationFilter;
 import com.mauro.helpdesk.security.JWTUtil;
 
-
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
-	
+
+	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**" };
+
 	@Autowired
 	private Environment env;
-	
 	@Autowired
 	private JWTUtil jwtUtil;
-	
 	@Autowired
 	private UserDetailsService userDetailsService;
 
@@ -41,9 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
-			
 		}
-		
 
 		http.cors().and().csrf().disable();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
@@ -52,13 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
-	
-
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
@@ -68,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
-	
+
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();

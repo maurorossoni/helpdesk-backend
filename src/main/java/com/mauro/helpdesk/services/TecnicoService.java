@@ -14,11 +14,11 @@ import com.mauro.helpdesk.domain.Tecnico;
 import com.mauro.helpdesk.domain.dtos.TecnicoDTO;
 import com.mauro.helpdesk.repositories.PessoaRepository;
 import com.mauro.helpdesk.repositories.TecnicoRepository;
-import com.mauro.helpdesk.services.exeptions.DataIntegrityViolationException;
-import com.mauro.helpdesk.services.exeptions.ObjectNotFoundExcepetion;
+import com.mauro.helpdesk.services.exceptions.DataIntegrityViolationException;
+import com.mauro.helpdesk.services.exceptions.ObjectnotFoundException;
 
 @Service
-public class  TecnicoService {
+public class TecnicoService {
 
 	@Autowired
 	private TecnicoRepository repository;
@@ -29,7 +29,7 @@ public class  TecnicoService {
 
 	public Tecnico findById(Integer id) {
 		Optional<Tecnico> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundExcepetion("Objeto não encontrado! Id: " + id));
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado! Id: " + id));
 	}
 
 	public List<Tecnico> findAll() {

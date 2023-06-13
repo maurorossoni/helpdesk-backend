@@ -2,7 +2,7 @@ package com.mauro.helpdesk.domain.enums;
 
 public enum Prioridade {
 
-	BAIXA(0, "BAIXA"), MEDIA(1,"MEDIA"), ALTA(2,"ALTA");
+	BAIXA(0, "BAIXA"), MEDIA(1, "MEDIA"), ALTA(2, "ALTA");
 	
 	private Integer codigo;
 	private String descricao;
@@ -20,18 +20,17 @@ public enum Prioridade {
 		return descricao;
 	}
 	
-	public static  Prioridade toEnum(Integer cod) {
+	public static Prioridade toEnum(Integer cod) {
 		if(cod == null) {
 			return null;
 		}
+		
 		for(Prioridade x : Prioridade.values()) {
 			if(cod.equals(x.getCodigo())) {
 				return x;
 			}
 		}
 		
-		throw new IllegalArgumentException("Prioridade Inválida");
-		
+		throw new IllegalArgumentException("Prioridade inválida");
 	}
-	
 }

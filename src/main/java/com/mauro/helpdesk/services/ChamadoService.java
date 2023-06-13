@@ -16,7 +16,7 @@ import com.mauro.helpdesk.domain.dtos.ChamadoDTO;
 import com.mauro.helpdesk.domain.enums.Prioridade;
 import com.mauro.helpdesk.domain.enums.Status;
 import com.mauro.helpdesk.repositories.ChamadoRepository;
-import com.mauro.helpdesk.services.exeptions.ObjectNotFoundExcepetion;
+import com.mauro.helpdesk.services.exceptions.ObjectnotFoundException;
 
 @Service
 public class ChamadoService {
@@ -30,30 +30,30 @@ public class ChamadoService {
 
 	public Chamado findById(Integer id) {
 		Optional<Chamado> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundExcepetion("Objeto não encontrado! ID: " + id));
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado! ID: " + id));
 	}
 
 	public List<Chamado> findAll() {
 		return repository.findAll();
 	}
 
-	public Chamado create(@Valid ChamadoDTO obj) {
+	public Chamado create(ChamadoDTO obj) {
 		return repository.save(newChamado(obj));
 	}
 
-	public Chamado update(Integer id, @Valid ChamadoDTO objDto) {
-		objDto.setId(id);
+	public Chamado update(Integer id, @Valid ChamadoDTO objDTO) {
+		objDTO.setId(id);
 		Chamado oldObj = findById(id);
-		oldObj = newChamado(objDto);
+		oldObj = newChamado(objDTO);
 		return repository.save(oldObj);
 	}
 
 	private Chamado newChamado(ChamadoDTO obj) {
 		Tecnico tecnico = tecnicoService.findById(obj.getTecnico());
 		Cliente cliente = clienteService.findById(obj.getCliente());
-
+		
 		Chamado chamado = new Chamado();
-		if (obj.getId() != null) {
+		if(obj.getId() != null) {
 			chamado.setId(obj.getId());
 		}
 		
@@ -71,3 +71,19 @@ public class ChamadoService {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

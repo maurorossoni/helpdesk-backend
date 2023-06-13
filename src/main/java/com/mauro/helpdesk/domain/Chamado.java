@@ -2,7 +2,6 @@ package com.mauro.helpdesk.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,36 +15,33 @@ import com.mauro.helpdesk.domain.enums.Prioridade;
 import com.mauro.helpdesk.domain.enums.Status;
 
 @Entity
-public class Chamado implements Serializable{
+public class Chamado implements Serializable {
 	private static final long serialVersionUID = 1L;
-	 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-    
-    @JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataAbetura = LocalDate.now();
-    
-    @JsonFormat(pattern = "dd/MM/yyyy")
+
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataAbertura = LocalDate.now();
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataFechamento;
-    
-    
+
 	private Prioridade prioridade;
 	private Status status;
 	private String titulo;
 	private String observacoes;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "tecnico_id")
-	private  Tecnico tecnico;
-	
+	private Tecnico tecnico;
+
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-	
+
 	public Chamado() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico,
@@ -69,11 +65,11 @@ public class Chamado implements Serializable{
 	}
 
 	public LocalDate getDataAbertura() {
-		return dataAbetura;
+		return dataAbertura;
 	}
 
-	public void setDataAbetura(LocalDate dataAbetura) {
-		this.dataAbetura = dataAbetura;
+	public void setDataAbertura(LocalDate dataAbertura) {
+		this.dataAbertura = dataAbertura;
 	}
 
 	public LocalDate getDataFechamento() {
@@ -134,7 +130,10 @@ public class Chamado implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
@@ -146,9 +145,12 @@ public class Chamado implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Chamado other = (Chamado) obj;
-		return Objects.equals(id, other.id);
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
-	
-	
-}
 
+}
